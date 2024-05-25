@@ -2,15 +2,20 @@
   import { generators } from "$lib/generators.js"
 
   let value = "generate a value"
+  let copied = ""
 
   async function handleClick(generatorName) {
     value = generators[generatorName]()
+    copied = " copied to clipboard ✓"
     await navigator.clipboard.writeText(value)
   }
 </script>
 
 <div class="flex flex-col items-center justify-center h-screen bg-zinc-900">
-  <h1 class="mb-6 jetbrains-mono-500 text-xl text-zinc-400">{value}</h1>
+  <h1 class="mb-6 jetbrains-mono-500 text-xl text-zinc-400">
+    {value}
+    <span class="jetbrains-mono-100 text-lg text-green-400">{copied}</span>
+  </h1>
 
   <div class="grid grid-cols-5 gap-4 w-3/4 mx-auto jetbrains-mono-200">
     {#each Object.keys(generators) as generatorName}
